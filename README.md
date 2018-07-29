@@ -45,6 +45,12 @@ Find
 Find-Module -Name *remote*
 ```
 
+Find Path
+
+```powershell
+(Get-Module -Name ((Get-Command Get-Process).ModuleName) | Select-Object -Property *).ModuleBase
+```
+
 Publish
 
 ```powershell
@@ -76,6 +82,32 @@ Add Property
 ```powershell
  $Coll = Get-Coll |
      Add-Member -MemberType NoteProperty -Name $PropertyName -Value $PropertyValue -PassThru
+```
+
+Rename Property
+
+```powershell
+Get-Process | Select-Object -Property @{name = 'NewName'; expression = 'Name'}
+```
+
+Order by multiple Properties
+
+```powershell
+Get-Service | Sort-Object -Property @{
+  Expression = "Status"; Descending = $True
+}, @{
+    Expression = "DisplayName"; Descending = $False
+  }
+```
+
+Calculated Properties
+
+```powershell
+Get-ChildItem -Path $Path -Filter '*.txt' |
+  Sort-Object -Property @{
+      Expression = {$_.LastWriteTime - $_.CreationTime}; Ascending = $False
+      } |
+  Format-Table LastWriteTime, CreationTime
 ```
 
 Avoid '+=' Operator
