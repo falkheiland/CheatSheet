@@ -3,8 +3,30 @@
 ## Error Handling
 
 ```powershell
-Write-Host "StatusCode:" $_.Exception.Response.StatusCode.value__
-Write-Host "StatusDescription:" $_.Exception.Response.StatusDescription
+foreach ($Item in $ItemColl)
+{
+  try
+  {
+    $Item = Get-Item -ErrorAction Stop
+  }
+  catch
+  {
+    $Item = 'Error'
+  }
+  finally
+  {
+    Write-Output $Item
+  }
+}
+```
+
+### Exception Response
+
+Invoke-RestMethod
+
+```powershell
+Write-Output "StatusCode:" $_.Exception.Response.StatusCode.value__
+Write-Output "StatusDescription:" $_.Exception.Response.StatusDescription
 ```
 
 ## Parameter
@@ -27,6 +49,13 @@ Not Null or Empty
 
 ```powershell
 [ValidateNotNullOrEmpty()]
+```
+
+### Accept Arrays
+
+```powershell
+[string[]]
+$MultipleItems = 'apple', 'orange', 'banana'
 ```
 
 ## Plaster
@@ -77,20 +106,50 @@ Install-Module -Name ModuleName -Repository RepositoryName -Scope AllUsers
 
 ## Objects
 
-Add Property
+### Write-Output vs Return
+
+Return | Write-Output
+-------|-------------
+only $Variable | all Outputs
+
+### '+=' Operator
+
+Avoid
+
+```powershell
+$data1 = 1..10000 | Foreach-Object { $_ }
+$data2 = foreach($element in (1..10000)) { $element }
+```
+
+Use
+
+* if first collect subroutine
+
+```powershell
+$Obj = @()
+foreach ($item in $items)
+{
+  $Obj += $item
+}
+Write-Output $Obj
+```
+
+### Property
+
+Add
 
 ```powershell
  $Coll = Get-Coll |
      Add-Member -MemberType NoteProperty -Name $PropertyName -Value $PropertyValue -PassThru
 ```
 
-Rename Property
+Rename (Avoid Alias)
 
 ```powershell
-Get-Process | Select-Object -Property @{name = 'NewName'; expression = 'Name'}
+Get-ADComputer -Filter * | Select-Object -Property @{name = 'Computername'; expression = {$_.name}}
 ```
 
-Order by multiple Properties
+Order by multiple
 
 ```powershell
 Get-Service | Sort-Object -Property @{
@@ -100,7 +159,7 @@ Get-Service | Sort-Object -Property @{
   }
 ```
 
-Calculated Properties
+Calculated
 
 ```powershell
 Get-ChildItem -Path $Path -Filter '*.txt' |
@@ -110,11 +169,16 @@ Get-ChildItem -Path $Path -Filter '*.txt' |
   Format-Table LastWriteTime, CreationTime
 ```
 
-Avoid '+=' Operator
+### OutVariable
 
 ```powershell
-$data1 = 1..10000 | Foreach-Object { $_ }
-$data2 = foreach($element in (1..10000)) { $element }
+$Null = Get-Service -OutVariable GetService |
+  Sort-Object -Property Status -Descending -OutVariable GetServiceByStatus |
+  Format-Table -AutoSize -OutVariable GetServiceByStatusAutosize
+
+$GetService
+$GetServiceByStatus
+$GetServiceByStatusAutosize
 ```
 
 ## Help
@@ -146,3 +210,44 @@ Get-Process | Show-Object
 ## Useful Modules
 
 PowerShellCookbook (Show-Object)
+
+## Statements
+
+### #Requires
+
+* #Requires -Version N[.n]
+* #Requires -PSEdition [ Core | Desktop ]
+* #Requires –PSSnapin PSSnapin-Name [-Version N[.n]]
+* #Requires -Modules { Module-Name | Hashtable }
+* #Requires –ShellId ShellId
+* #Requires -RunAsAdministrator
+
+## CmdletBinding
+
+* advanced function
+
+```powershell
+[CmdletBinding(DefaultParameterSetName = 'Set1', SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
+```
+
+### DefaultParameterSetName
+
+### SupportsShouldProcess
+
+WhatIf, Comfirm Support
+
+```powershell
+if ($PSCmdlet.ShouldProcess('ID: {0}' -f $ID))
+{
+  Remove-Something -ID $ID
+}
+```
+
+### ConfirmImpact
+
+Whenever the ConfirmImpact is equal or higher than the $ConfirmPreference (Default 'High'), a confirmation is required.
+
+## Formatting
+
+### Line continuation, Backticks
+
