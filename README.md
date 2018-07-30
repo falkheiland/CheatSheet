@@ -104,6 +104,40 @@ Install
 Install-Module -Name ModuleName -Repository RepositoryName -Scope AllUsers
 ```
 
+## String
+
+### Concatenating
+
+join
+
+```powershell
+-join('aaa', 'bbb')
+```
+
+f operator
+
+```powershell
+'{0}{1}' -f 'aaa', 'bbb'
+```
+
+### extract a part of the string
+
+substring
+
+```powershell
+$FirstTwoChars = ('abcdefg').Substring(0, 2)
+```
+
+Left and right part from delimiter
+
+```powershell
+$Name = 'aaaaaaaaaa;bbbbbbbbb'
+$Pos = $Name.IndexOf(';')
+$LeftPart = $Name.Substring(0, $Pos)
+$RightPart = $Name.Substring($Pos + 1)
+```
+
+
 ## Objects
 
 ### Write-Output vs Return
@@ -249,5 +283,97 @@ Whenever the ConfirmImpact is equal or higher than the $ConfirmPreference (Defau
 
 ## Formatting
 
-### Line continuation, Backticks
+### Line break
 
+Line too long
+
+```powershell
+Get-WmiObject -Class 'Win32_LogicalDisk' -Filter 'DriveType=3' -Computername 'localhost'
+```
+
+Backticks
+
+* hard to read
+* trailing spaces break code
+
+```powershell
+Get-WmiObject -Class 'Win32_LogicalDisk' `
+  -Filter 'DriveType=3' `
+  -ComputerName 'localhost'
+```
+
+Splatting
+
+```powershell
+$GetWmiObjectParams = @{
+  Class        = 'Win32_LogicalDisk'
+  Filter       = 'DriveType=3'
+  Computername = 'localhost'
+}
+Get-WmiObject @GetWmiObjectParams
+```
+
+Other
+
+line break after almost any comma, pipe character, or semicolon
+
+## Regular expressions, regex
+
+[Powershell: The many ways to use regex](https://kevinmarquette.github.io/2017-07-31-Powershell-regex-regular-expression/)
+
+### Named matches (capture group name)
+
+```powershell
+$Text = '192.168.0.1 computer01.domain.com 001122334455'
+$Pattern = '^(?<IPv4>\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s+(?<Computername>(\w|\d|\.)+)\s+(?<MAC>\d{12})'
+if ($Text -match $Pattern)
+{
+  $matches
+}
+```
+
+Part of an OU
+
+```powershell
+$Text = 'cn=JSmith,ou=Management,ou=users,ou=London,dc=company,dc=com'
+$Pattern = '^.+ou=(?<Location>(\w|\d|\s)+)(?!.+ou){1}'
+$Location = ([regex]::match($Text, $Pattern).captures.groups).Where{$_.Name -eq 'Location'}.Value
+```
+
+Filename and Path
+
+```powershell
+$Text = 'C:\Temp\Subdir01\Test.txt'
+$Pattern = '(?<Path>.+)\\(?<Filename>(?:.(?!\\))+$)'
+$Filename = ([regex]::match($Text, $Pattern).captures.groups).Where{$_.Name -eq 'Filename'}.Value
+$Path = ([regex]::match($Text, $Pattern).captures.groups).Where{$_.Name -eq 'Path'}.Value
+```
+
+create object
+
+```powershell
+$TextColl = '192.168.0.1 computer01.domain.com 001122334455', '192.168.0.2 computer02.domain.com 001122334466'
+$Pattern = '^(?<IPv4>\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})\s+(?<Computername>(\w|\d|\.)+)\s+(?<MAC>\d{12})'
+$Result = foreach ($Text in $TextColl)
+{
+  if ($Text -match $Pattern)
+  {
+    New-Object -TypeName PsObject -Property $matches
+  }
+}
+$Result
+```
+
+### .net Regex
+
+get methods
+
+```powershell
+[regex]::new($pattern) | Get-Member
+```
+
+match string
+
+```powershell
+[regex]::match($string,"^(\w{3})(\w{2,3})-.*$")
+```
