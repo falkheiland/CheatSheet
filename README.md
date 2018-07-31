@@ -137,6 +137,34 @@ $LeftPart = $Name.Substring(0, $Pos)
 $RightPart = $Name.Substring($Pos + 1)
 ```
 
+## Here String
+
+### Create
+
+```powershell
+$HereString = @'
+     sadsada
+   asdsadas
+dasssd
+ fsf  ff
+'@
+```
+
+### Join
+
+```powershell
+$HereStringA = @"
+asdasd
+dgfg
+    dfg
+"@
+$HereStringB = @'
+asdfsdassdfdfd
+        ds gfdg
+  dfgd
+'@
+$HereStringA, $HereStringB -join "`n"
+```
 
 ## Objects
 
@@ -213,6 +241,30 @@ $Null = Get-Service -OutVariable GetService |
 $GetService
 $GetServiceByStatus
 $GetServiceByStatusAutosize
+```
+
+## Hashtable
+
+### Ordered
+
+```powershell
+$OrderedHashTable = [ordered]@{
+  a = 1
+  b = 2
+  c = 3
+  d = 4
+}
+```
+
+### Add items
+
+```powershell
+$HashTable = @{}
+Get-ChildItem -Path $env:windir -Filter *.exe | ForEach-Object {
+
+  $HashTable.Add($_.Name.ToString() , $_.Length.ToString())
+}
+$HashTable
 ```
 
 ## Help
@@ -376,4 +428,26 @@ match string
 
 ```powershell
 [regex]::match($string,"^(\w{3})(\w{2,3})-.*$")
+```
+
+## Diverse
+
+### remove UTF8 BOM
+
+```powershell
+[System.IO.File]::WriteAllLines($FilePath, (Get-Content -Path $FilePath))
+```
+
+```powershell
+(Get-Content -Path $FilePath) -replace '\xEF\xBB\xBF', '' |
+  Set-Content -Path $FilePath
+```
+
+### SQL NULL value
+
+```powershell
+if ($Property.Value -is [System.DBNull])
+{
+  $Value = $Null
+}
 ```
