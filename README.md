@@ -3,7 +3,6 @@
 - [Error Handling](#error-handling)
   - [Exception Response](#exception-response)
 - [Credential](#credential)
-  - [Exception Response](#exception-response)
 - [Parameter](#parameter)
   - [Validation](#validation)
   - [Accept Arrays](#accept-arrays)
