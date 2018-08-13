@@ -2,6 +2,8 @@
 
 - [Error Handling](#error-handling)
   - [Exception Response](#exception-response)
+- [Credential](#credential)
+  - [Exception Response](#exception-response)
 - [Parameter](#parameter)
   - [Validation](#validation)
   - [Accept Arrays](#accept-arrays)
@@ -57,6 +59,20 @@ foreach ($Item in $ItemColl)
     Write-Output $Item
   }
 }
+```
+
+## Credential
+
+Save credential
+
+```powershell
+Get-Credential | Export-Clixml -Path ('{0}\user@hostname.cred' -f ${env:\userprofile})
+```
+
+Load credential
+
+```powershell
+$Credential = Import-Clixml -Path ('{0}\user@hostname.cred' -f ${env:\userprofile})
 ```
 
 ### Exception Response
