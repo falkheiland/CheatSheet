@@ -347,9 +347,16 @@ Provides a graphical interface to let you explore and navigate an object.
 Get-Process | Show-Object
 ```
 
+quick replacement for Out-Gridview, Excel has to be installed
+
+```powershell
+Get-Process | Export-Excel -Now -WarningAction SilentlyContinue
+```
+
 ## Useful Modules
 
-PowerShellCookbook (Show-Object)
+* PowerShellCookbook (Show-Object)
+* ImportExcel
 
 ## Statements
 
