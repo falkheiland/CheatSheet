@@ -39,6 +39,7 @@
 - [Diverse](#diverse)
   - [remove UTF8 BOM](#remove-utf8-bom)
   - [SQL NULL value](#sql-null-value)
+  - [DateTime](#datetime)
 
 ## Error Handling
 
@@ -511,4 +512,16 @@ if ($Property.Value -is [System.DBNull])
 {
   $Value = $Null
 }
+```
+
+### DateTime
+
+**ISO 8601:**
+
+```powershell
+(Get-Date).ToString('s')
+```
+
+``` console
+2018-09-14T13:08:14
 ```
