@@ -525,3 +525,12 @@ if ($Property.Value -is [System.DBNull])
 ``` console
 2018-09-14T13:08:14
 ```
+**ISO 8601 + UTC offset:**
+
+```powershell
+(Get-Date).ToString('o')
+```
+
+``` console
+2018-09-14T13:19:38.7241894+02:00
+```
