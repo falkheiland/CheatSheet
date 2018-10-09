@@ -100,6 +100,12 @@ IP Address
 [ValidateScript({$_ -match [IPAddress]$_ })]
 ```
 
+MAC Address
+
+```powershell
+[ValidatePattern('(([0-9A-Fa-f]{2}[-:]){5}[0-9A-Fa-f]{2})|(([0-9A-Fa-f]{4}\.){2}[0-9A-Fa-f]{4})')]
+```
+
 Not Null or Empty
 
 ```powershell
