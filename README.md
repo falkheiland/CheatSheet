@@ -112,6 +112,23 @@ Not Null or Empty
 [ValidateNotNullOrEmpty()]
 ```
 
+Path
+
+```powershell
+[ValidateScript({
+    if(-Not ($_ | Test-Path) )
+    {
+      throw "File or folder does not exist" 
+    }
+    if(-Not ($_ | Test-Path -PathType Leaf) )
+    {
+      throw "The Path argument must be a file. Folder paths are not allowed."
+    }
+    return $true
+  })]
+[System.IO.FileInfo]$Path
+```
+
 ### Accept Arrays
 
 ```powershell
