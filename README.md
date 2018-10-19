@@ -276,16 +276,20 @@ only $Variable | all Outputs
 
 ### '+=' Operator
 
-Avoid
+Avoid, instead use
 
 ```powershell
-$data1 = 1..10000 | Foreach-Object { $_ }
-$data2 = foreach($element in (1..10000)) { $element }
+$Obj1 = foreach ($item in $items)
+{
+  $item
+}
+
+$Obj2 = 1..10000 | Foreach-Object { $_ }
+
+$Obj3 = foreach($element in (1..10000)) { $element }
 ```
 
-Use
-
-* if first collect subroutine
+Use if first collect subroutine
 
 ```powershell
 $Obj = @()
