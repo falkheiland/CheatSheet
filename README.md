@@ -15,6 +15,7 @@
   - [Create](#create)
   - [Join](#join)
 - [Objects](#objects)
+  - [Creating](#creating)
   - [Write-Output vs Return](#write-output-vs-return)
   - ['+=' Operator](#-operator)
   - [Property](#property)
@@ -245,6 +246,27 @@ $HereStringA, $HereStringB -join "`n"
 ```
 
 ## Objects
+
+### Creating
+
+Using New-Object and hashtables
+
+```powershell
+$properties = @{
+  firstname = 'Peter'
+  lastname  = 'Miller'
+}
+New-Object psobject -Property $properties
+```
+
+Convert Hashtables to [PSCustomObject]
+
+```powershell
+[pscustomobject]@{
+  firstname = 'Peter'
+  lastname  = 'Miller'
+}
+```
 
 ### Write-Output vs Return
 
