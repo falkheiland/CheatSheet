@@ -22,7 +22,9 @@
   - [OutVariable](#outvariable)
 - [Hashtable](#hashtable)
   - [Ordered](#ordered)
-  - [Add items](#add-items)
+  - [Arrays of hashtables](#arrays-of-hashtables)
+  - [PSBoundParameters](#psboundparameters)
+  - [Special](#special)
 - [Help](#help)
 - [Useful Functions](#useful-functions)
 - [Useful Modules](#useful-modules)
@@ -369,6 +371,42 @@ Get-ChildItem -Path $env:windir -Filter *.exe | ForEach-Object {
   $HashTable.Add($_.Name.ToString() , $_.Length.ToString())
 }
 $HashTable
+```
+
+### Arrays of hashtables
+
+```powershell
+$peopleArray = @(
+  @{
+    name = 'Kevin'
+    age  = 37
+    city = 'Irvine'
+  }
+  @{
+    name = 'Alex'
+    age  = 9
+    city = 'Irvine'
+  }
+)
+$peopleArray | ConvertTo-Json
+```
+
+### PSBoundParameters
+
+Proxy functions with PSBoundParameters:
+
+```powershell
+function Get-ProxyWMIObject 
+{
+  [cmdletbinding()]
+  param(
+    $Class,
+    $ComputerName
+  )
+  Get-WmiObject @PSBoundParameters
+}
+
+Get-ProxyWMIObject  -Class WIN32_BIOS
 ```
 
 ## Help
