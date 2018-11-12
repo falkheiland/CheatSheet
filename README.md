@@ -571,6 +571,12 @@ between quotation marks
 $Pattern = '\"(?<BetweenQuotationMarks>.*)\"'
 ```
 
+abc until first space
+
+```powershell
+$Pattern = 'abc(?<ABCUntilFirstpace>[^\s]*)'
+```
+
 ### .net Regex
 
 get methods
