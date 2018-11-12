@@ -568,7 +568,7 @@ $Result
 between quotation marks
 
 ```powershell
-$Pattern = '(?<BetweenQuotationMarks>(?<=").*(?="))'
+$Pattern = '\"(?<BetweenQuotationMarks>.*)\"'
 ```
 
 ### .net Regex
