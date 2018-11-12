@@ -565,6 +565,12 @@ $Result = foreach ($Text in $TextColl)
 $Result
 ```
 
+between quotation marks
+
+```powershell
+$Pattern = '(?<BetweenQuotationMarks>(?<=").*(?="))'
+```
+
 ### .net Regex
 
 get methods
