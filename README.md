@@ -574,7 +574,7 @@ $Pattern = '\"(?<BetweenQuotationMarks>.*)\"'
 abc until first space
 
 ```powershell
-$Pattern = 'abc(?<ABCUntilFirstpace>[^\s]*)'
+$Pattern = '(?<ABCUntilFirstpace>abc[^\s]*)'
 ```
 
 ### .net Regex
