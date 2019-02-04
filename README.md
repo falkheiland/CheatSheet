@@ -3,6 +3,7 @@
 - [Error Handling](#error-handling)
   - [Exception Response](#exception-response)
 - [Credential](#credential)
+- [SecureString](#securestring)
 - [Parameter](#parameter)
   - [Validation](#validation)
   - [Accept Arrays](#accept-arrays)
@@ -78,7 +79,24 @@ Load credential
 $Credential = Import-Clixml -Path ('{0}\user@hostname.cred' -f ${env:\userprofile})
 ```
 
-### Exception Response
+## SecureString
+
+Create SecureString, write it to file
+
+```powershell
+ConvertTo-SecureString –String 'F987sdh4dfd3DPiSM4DLGJ-wiWePUJkl77Mo' -AsPlainText -Force |
+Export-Clixml -Path ('{0}\user@hostname.token' -f ${env:\userprofile})
+```
+
+Get String From SecureString
+
+```powershell
+$SecureString = Import-Clixml -Path ('{0}\user@hostname.token' -f ${env:\userprofile})
+$bstr = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
+[Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
+```
+
+## Exception Response
 
 Invoke-RestMethod
 
