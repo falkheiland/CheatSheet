@@ -7,6 +7,7 @@
 - [Parameter](#parameter)
   - [Validation](#validation)
   - [Accept Arrays](#accept-arrays)
+  - [Default Parameter Values](#default-parameter-values)
 - [Plaster](#plaster)
 - [Modules](#modules)
 - [String](#string)
@@ -155,6 +156,14 @@ Path
 ```powershell
 [string[]]
 $MultipleItems = 'apple', 'orange', 'banana'
+```
+
+### Default Parameter Values
+
+```powershell
+$PSDefaultParameterValues = @{
+  '*:Computername' = 'Computer01'
+}
 ```
 
 ## Plaster
