@@ -1,5 +1,11 @@
 # Powershell
 
+- [Console](#console)
+  - [Profile](#profile)
+  - [History](#history)
+- [Remoting](#remoting)
+- [AD](#ad)
+- [Networking](#Networking)
 - [Error Handling](#error-handling)
   - [Exception Response](#exception-response)
 - [Credential](#credential)
@@ -22,6 +28,7 @@
   - ['+=' Operator](#-operator)
   - [Property](#property)
   - [OutVariable](#outvariable)
+  - [Methods](#methods)
 - [Hashtable](#hashtable)
   - [Ordered](#ordered)
   - [Add items](#add-items)
@@ -46,6 +53,123 @@
   - [SQL NULL value](#sql-null-value)
   - [DateTime](#datetime)
 
+## Console
+
+### Profile
+
+Changing Tab Completion (shows and lets choose parameter):
+
+```powershell
+Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
+```
+
+Show help for Parameter
+
+```powershell
+Set-PSReadlineOption -ShowToolTips
+```
+
+Deactivate beep on error:
+
+```powershell
+Set-PSReadlineOption -BellStyle None
+```
+
+Bash style completion:
+
+```powershell
+Set-PSReadlineOption -EditMode Emacs
+```
+
+### History
+
+Search console history [CTRL]+[R]:
+
+```console
+C:\>bck-i-search: <String>
+```
+
+'#' searcher:
+
+`C:\>#<optional String>`+[TAB]
+
+## Remoting
+
+Enabling with WinRM:
+
+```powershell
+([wmiclass]"\\$ComputerName\root\cimv2:win32_process").Create('powershell Enable-PSRemoting -Force')
+```
+
+Enabling with psexec:
+
+```powershell
+psexec.exe \\computername -h -s powershell.exe Enable-PSRemoting -Force
+```
+
+## AD
+
+Get an orphaned computer instantly back on the domain or fixes its account:
+
+```powershell
+Reset-ComputerMachinePassword -Server $Computername
+```
+
+Fixing domain join issues without a reboot:
+
+```powershell
+Test-ComputerSecureChannel -Server $Computername -Repair
+```
+
+## Networking
+
+Test network connection (ping), result is bool:
+
+```powershell
+Test-Connection -ComputerName $Computername -Count 3 -Quiet
+```
+
+Test network connection (TCP Port), result is bool (telnet alternative):
+
+```powershell
+(Test-NetConnection -ComputerName $Computername -Port $TCPPort).TcpTestSucceeded
+```
+
+Create, start and stop TCP Listener:
+
+```powershell
+$Listener = [System.Net.Sockets.TcpListener]$TCPPort
+$Listener.Start()
+$Listener.Stop()
+```
+
+Get IP network configuration (ipconfig -all alternative):
+
+```powershell
+Get-NetIPConfiguration -All
+```
+
+Change the network category of a connection profile form public to private:
+
+```powershell
+Get-NetConnectionProfile |
+  Where-Object -Property NetworkCategory -eq 'Public' |
+  Set-NetConnectionProfile -NetworkCategory Private
+```
+
+Perform a DNS name query resolution:
+
+```powershell
+Resolve-DnsName -Name $Computername
+```
+
+Perform a DNS name query resolution (query type is mail routing):
+
+```powershell
+Resolve-DnsName -Name $Computername -Type MX
+```
+
+
 ## Error Handling
 
 ```powershell
@@ -64,6 +188,15 @@ foreach ($Item in $ItemColl)
     Write-Output $Item
   }
 }
+```
+
+### Exception Response
+
+Invoke-RestMethod:
+
+```powershell
+Write-Output "StatusCode:" $_.Exception.Response.StatusCode.value__
+Write-Output "StatusDescription:" $_.Exception.Response.StatusDescription
 ```
 
 ## Credential
@@ -95,15 +228,6 @@ Get String From SecureString
 $SecureString = Import-Clixml -Path ('{0}\user@hostname.token' -f ${env:\userprofile})
 $bstr = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($SecureString)
 [Runtime.InteropServices.Marshal]::PtrToStringBSTR($bstr)
-```
-
-## Exception Response
-
-Invoke-RestMethod
-
-```powershell
-Write-Output "StatusCode:" $_.Exception.Response.StatusCode.value__
-Write-Output "StatusDescription:" $_.Exception.Response.StatusDescription
 ```
 
 ## Parameter
@@ -375,6 +499,21 @@ $GetService
 $GetServiceByStatus
 $GetServiceByStatusAutosize
 ```
+
+### Methods
+
+where method:
+
+```powershell
+(Get-Service).where{$_.Status -eq 'running'}
+```
+
+foreach method:
+
+```powershell
+(Get-Service).foreach{$_.DisplayName}
+```
+
 
 ## Hashtable
 
@@ -660,3 +799,7 @@ if ($Property.Value -is [System.DBNull])
 ``` console
 2018-09-14T13:19:38.7241894+02:00
 ```
+
+## CLI
+
+## 
