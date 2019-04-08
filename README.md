@@ -52,6 +52,7 @@
   - [remove UTF8 BOM](#remove-utf8-bom)
   - [SQL NULL value](#sql-null-value)
   - [DateTime](#datetime)
+  - [Disable Powershell V2](#disable-powershell-v2)
 
 ## Console
 
@@ -800,6 +801,8 @@ if ($Property.Value -is [System.DBNull])
 2018-09-14T13:19:38.7241894+02:00
 ```
 
-## CLI
+### Disable Powershell V2
 
-## 
+```
+Disable-WindowsOptionalFeature -Online –FeatureName MicrosoftWindowsPowerShellV2Root –norestart
+```
