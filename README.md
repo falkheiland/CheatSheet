@@ -53,6 +53,7 @@
   - [SQL NULL value](#sql-null-value)
   - [DateTime](#datetime)
   - [Disable Powershell V2](#disable-powershell-v2)
+  - [Select and show Command](#select-and-show-Command)
 
 ## Console
 
@@ -805,4 +806,11 @@ if ($Property.Value -is [System.DBNull])
 
 ```
 Disable-WindowsOptionalFeature -Online –FeatureName MicrosoftWindowsPowerShellV2Root –norestart
+```
+
+### Select and show Command
+
+```
+Get-Command | Out-GridView -PassThru | Get-Help -ShowWindow
+  Show-command $(Get-Command | Out-GridView -PassThru).Name
 ```
