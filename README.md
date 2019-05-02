@@ -19,6 +19,7 @@
 - [String](#string)
   - [Concatenating](#concatenating)
   - [extract a part of the string](#extract-a-part-of-the-string)
+  - [Title Casing](#title-casing)
 - [Here String](#here-string)
   - [Create](#create)
   - [Join](#join)
@@ -380,6 +381,12 @@ $Name = 'aaaaaaaaaa;bbbbbbbbb'
 $Pos = $Name.IndexOf(';')
 $LeftPart = $Name.Substring(0, $Pos)
 $RightPart = $Name.Substring($Pos + 1)
+```
+
+### Title Casing
+
+```
+(Get-Culture).TextInfo.ToTitleCase("maX MusTerMann")
 ```
 
 ## Here String
