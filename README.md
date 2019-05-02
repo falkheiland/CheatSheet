@@ -338,6 +338,17 @@ Install
 Install-Module -Name ModuleName -Repository RepositoryName -Scope AllUsers
 ```
 
+Check for  outdated  Modules
+```powershell
+Get-InstalledModule |
+  Select-Object Name, @{
+  n = 'Installed'; e = {$_.Version}
+}, @{n = 'Available'; e = {
+    (Find-Module -Name $_.Name).Version}
+} |
+  Where-Object {$_.Available -gt $_.Installed}
+```
+
 ## String
 
 ### Concatenating
