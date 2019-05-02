@@ -55,6 +55,7 @@
   - [DateTime](#datetime)
   - [Disable Powershell V2](#disable-powershell-v2)
   - [Select and show Command](#select-and-show-Command)
+  - [Trigger Windows update](#trigger-windows-update)
 
 ## Console
 
@@ -815,7 +816,7 @@ if ($Property.Value -is [System.DBNull])
 (Get-Date).ToString('s')
 ```
 
-``` console
+```console
 2018-09-14T13:08:14
 ```
 **ISO 8601 + UTC offset:**
@@ -824,19 +825,25 @@ if ($Property.Value -is [System.DBNull])
 (Get-Date).ToString('o')
 ```
 
-``` console
+```console
 2018-09-14T13:19:38.7241894+02:00
 ```
 
 ### Disable Powershell V2
 
-```
+```powershell
 Disable-WindowsOptionalFeature -Online –FeatureName MicrosoftWindowsPowerShellV2Root –norestart
 ```
 
 ### Select and show Command
 
-```
+```powershell
 Get-Command | Out-GridView -PassThru | Get-Help -ShowWindow
   Show-command $(Get-Command | Out-GridView -PassThru).Name
+```
+
+### Trigger Windows Update
+
+```powershell
+(New-Object -ComObject 'Microsoft.Update.AutoUpdate').DetectNow()
 ```
