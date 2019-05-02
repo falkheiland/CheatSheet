@@ -132,6 +132,14 @@ Test network connection (ping), result is bool:
 Test-Connection -ComputerName $Computername -Count 3 -Quiet
 ```
 
+Ping sweep
+
+```powershell
+(((0..255).ForEach( { "192.168.0.$_" }) | ForEach-Object {
+      (New-Object Net.NetworkInformation.Ping).SendPingAsync($_, 250)
+    }).Result.Where{ $_.Status -eq 'Success' }).Address.IPAddressToString
+```
+
 Test network connection (TCP Port), result is bool (telnet alternative):
 
 ```powershell
