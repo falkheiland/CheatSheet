@@ -14,6 +14,7 @@
   - [Validation](#validation)
   - [Accept Arrays](#accept-arrays)
   - [Default Parameter Values](#default-parameter-values)
+- [Pester](#pester)
 - [Plaster](#plaster)
 - [Modules](#modules)
 - [String](#string)
@@ -56,6 +57,7 @@
   - [Disable Powershell V2](#disable-powershell-v2)
   - [Select and show Command](#select-and-show-Command)
   - [Trigger Windows update](#trigger-windows-update)
+  - [Generate Password](#generate-password)
 
 ## Console
 
@@ -300,6 +302,18 @@ $MultipleItems = 'apple', 'orange', 'banana'
 $PSDefaultParameterValues = @{
   '*:Computername' = 'Computer01'
 }
+```
+
+## Pester
+
+Check for Type [array]
+
+```powershell
+,@(1, 4, 5) | Should -HaveType [Array]
+```
+
+```powershell
+Should -HaveType ([Array]) -ActualValue @(1, 4, 5)
 ```
 
 ## Plaster
@@ -664,7 +678,7 @@ Get-Process | Export-Excel -Now -WarningAction SilentlyContinue
 
 ### SupportsShouldProcess
 
-WhatIf, Comfirm Support
+WhatIf, Confirm Support
 
 ```powershell
 if ($PSCmdlet.ShouldProcess('ID: {0}' -f $ID))
@@ -846,4 +860,11 @@ Get-Command | Out-GridView -PassThru | Get-Help -ShowWindow
 
 ```powershell
 (New-Object -ComObject 'Microsoft.Update.AutoUpdate').DetectNow()
+```
+### Generate Password
+
+**Generates an 8-char PW including 3 special characters**
+
+```powershell
+[system.web.security.membership]::GeneratePassword(8,3)
 ```
