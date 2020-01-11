@@ -3,6 +3,8 @@
 - [Console](#console)
   - [Profile](#profile)
   - [History](#history)
+- [vscode](#vscode)
+  - [Settings](#settings)
 - [Remoting](#remoting)
 - [AD](#ad)
 - [Networking](#Networking)
@@ -85,6 +87,29 @@ Bash style completion:
 
 ```powershell
 Set-PSReadlineOption -EditMode Emacs
+```
+
+## vscode
+
+### Settings
+
+use correct casing:
+
+```json
+powershell.codeFormatting.useCorrectCasing
+```
+
+```console
+get-item
+Get-Item
+```
+
+format on save:
+
+```json
+"[powershell]": {
+  "editor.formatOnSave": true
+}
 ```
 
 ### History
@@ -300,7 +325,7 @@ $MultipleItems = 'apple', 'orange', 'banana'
 
 ```powershell
 $PSDefaultParameterValues = @{
-  '*:Computername' = 'Computer01'
+  ':Computername' = 'Computer01'
 }
 ```
 
@@ -329,13 +354,13 @@ Invoke-Plaster -TemplatePath C:\Path\To\PlasterTemplate -DestinationPath  C:\Pat
 Find
 
 ```powershell
-Find-Module -Name *remote*
+Find-Module -Name remote
 ```
 
 Find Path
 
 ```powershell
-(Get-Module -Name ((Get-Command Get-Process).ModuleName) | Select-Object -Property *).ModuleBase
+(Get-Module -Name ((Get-Command Get-Process).ModuleName) | Select-Object -Property ).ModuleBase
 ```
 
 Publish
@@ -508,7 +533,7 @@ Add
 Rename (Avoid Alias)
 
 ```powershell
-Get-ADComputer -Filter * | Select-Object -Property @{name = 'Computername'; expression = {$_.name}}
+Get-ADComputer -Filter  | Select-Object -Property @{name = 'Computername'; expression = {$_.name}}
 ```
 
 Order by multiple
@@ -524,7 +549,7 @@ Get-Service | Sort-Object -Property @{
 Calculated
 
 ```powershell
-Get-ChildItem -Path $Path -Filter '*.txt' |
+Get-ChildItem -Path $Path -Filter '.txt' |
   Sort-Object -Property @{
       Expression = {$_.LastWriteTime - $_.CreationTime}; Ascending = $False
       } |
@@ -575,7 +600,7 @@ $OrderedHashTable = [ordered]@{
 
 ```powershell
 $HashTable = @{}
-Get-ChildItem -Path $env:windir -Filter *.exe | ForEach-Object {
+Get-ChildItem -Path $env:windir -Filter .exe | ForEach-Object {
 
   $HashTable.Add($_.Name.ToString() , $_.Length.ToString())
 }
@@ -652,23 +677,23 @@ Get-Process | Export-Excel -Now -WarningAction SilentlyContinue
 
 ## Useful Modules
 
-* PowerShellCookbook (Show-Object)
-* ImportExcel
+ PowerShellCookbook (Show-Object)
+ ImportExcel
 
 ## Statements
 
 ### #Requires
 
-* #Requires -Version N[.n]
-* #Requires -PSEdition [ Core | Desktop ]
-* #Requires –PSSnapin PSSnapin-Name [-Version N[.n]]
-* #Requires -Modules { Module-Name | Hashtable }
-* #Requires –ShellId ShellId
-* #Requires -RunAsAdministrator
+ #Requires -Version N[.n]
+ #Requires -PSEdition [ Core | Desktop ]
+ #Requires –PSSnapin PSSnapin-Name [-Version N[.n]]
+ #Requires -Modules { Module-Name | Hashtable }
+ #Requires –ShellId ShellId
+ #Requires -RunAsAdministrator
 
 ## CmdletBinding
 
-* advanced function
+ advanced function
 
 ```powershell
 [CmdletBinding(DefaultParameterSetName = 'Set1', SupportsShouldProcess = $true, ConfirmImpact = 'Medium')]
@@ -703,8 +728,8 @@ Get-WmiObject -Class 'Win32_LogicalDisk' -Filter 'DriveType=3' -Computername 'lo
 
 Backticks
 
-* hard to read
-* trailing spaces break code
+ hard to read
+ trailing spaces break code
 
 ```powershell
 Get-WmiObject -Class 'Win32_LogicalDisk' `
@@ -777,13 +802,13 @@ $Result
 between quotation marks
 
 ```powershell
-$Pattern = '\"(?<BetweenQuotationMarks>.*)\"'
+$Pattern = '\"(?<BetweenQuotationMarks>.)\"'
 ```
 
 abc until first space
 
 ```powershell
-$Pattern = '(?<ABCUntilFirstpace>abc[^\s]*)'
+$Pattern = '(?<ABCUntilFirstpace>abc[^\s])'
 ```
 
 ### .net Regex
@@ -797,7 +822,7 @@ get methods
 match string
 
 ```powershell
-[regex]::match($string,"^(\w{3})(\w{2,3})-.*$")
+[regex]::match($string,"^(\w{3})(\w{2,3})-.$")
 ```
 
 ## Diverse
@@ -813,6 +838,13 @@ match string
   Set-Content -Path $FilePath
 ```
 
+### create csv w/o double quotes
+
+```powershell
+Get-ChildItem | ConvertTo-Csv -NoTypeInformation |
+  ForEach-Object { $_.Replace('"', '') } | Out-File output.csv
+```
+
 ### SQL NULL value
 
 ```powershell
@@ -824,7 +856,7 @@ if ($Property.Value -is [System.DBNull])
 
 ### DateTime
 
-**ISO 8601:**
+ISO 8601:
 
 ```powershell
 (Get-Date).ToString('s')
@@ -833,7 +865,7 @@ if ($Property.Value -is [System.DBNull])
 ```console
 2018-09-14T13:08:14
 ```
-**ISO 8601 + UTC offset:**
+ISO 8601 + UTC offset:
 
 ```powershell
 (Get-Date).ToString('o')
@@ -841,6 +873,24 @@ if ($Property.Value -is [System.DBNull])
 
 ```console
 2018-09-14T13:19:38.7241894+02:00
+```
+
+FileDate(Time):
+
+```powershell
+Get-Date -Format FileDateTime
+```
+
+```console
+20200111T1721060231
+```
+
+```powershell
+Get-Date -Format FileDate
+```
+
+```console
+20200111
 ```
 
 ### Disable Powershell V2
@@ -863,8 +913,46 @@ Get-Command | Out-GridView -PassThru | Get-Help -ShowWindow
 ```
 ### Generate Password
 
-**Generates an 8-char PW including 3 special characters**
+Generates an 8-char PW including 3 special characters
 
 ```powershell
 [system.web.security.membership]::GeneratePassword(8,3)
+```
+
+```console
+=^l.dN!h
+```
+
+### current Path
+
+```powershell
+$($executionContext.SessionState.Path.CurrentLocation)
+```
+
+``` console
+Path
+----
+C:\GitHub
+```
+
+### check for administrator
+
+```powershell
+[System.Security.Principal.WindowsPrincipal]::new([System.Security.Principal.WindowsIdentity]::GetCurrent() ).IsInRole("Administrators")
+```
+
+``` console
+false
+```
+
+### escape wildcard pattern
+
+```powershell
+$BeginWith = [WildcardPattern]::Escape('Mich')
+'Michael', 'Michelle', 'Jonathan' -like "$BeginWith"
+```
+
+```console
+Michael
+Michelle
 ```
