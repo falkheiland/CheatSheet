@@ -99,10 +99,6 @@
 |-|-|
 | klist | Display kerberos tickets |
 | kinit | Active Directory login |
-| Misc commands ||
-| florence| OnScreen Keyboard|
-| notify\-send\-message | Display GUI Text Message |
-| Mostly all commands provide an build-in help with | command --h |
 
 # Important files in /wfs
 
@@ -182,6 +178,9 @@
 
 | command| description|
 |-|-|
+| florence| OnScreen Keyboard|
+| notify\-send\-message | Display GUI Text Message |
+| Mostly all commands provide an build-in help with | command --h |
 | igel_firstboot_wizard | Starts the First Boot Wizard|
 | igel_buddy_update_server_scan | Search for Buddy Masters in network |
 | start\-wireless\-manager| Starts the Wireless cafe menu \(start as user\) |
