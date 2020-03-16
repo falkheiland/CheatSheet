@@ -32,7 +32,7 @@
 | command| description|
 |-|-|
 | ping / ping6 | Ping IPV4 / Ping IPV6 |
-| /etc/init\.d/network restart | Restart network service |
+| /etc/init.d/network restart | Restart network service |
 | ftp| Start a FTP Client|
 | netstat| Display open connections|
 | hostname | Display current hostname|
@@ -63,10 +63,10 @@
 | lsusb| List USB devices |
 | lspci| List PCI devices |
 | rtcwake| Automatic restart/supend |
-| speaker\-test| Speaker test |
+| speaker-test| Speaker test |
 | aplay| Audio device tool|
 | x11config| Show display config|
-| get\-edid| Display DDC details|
+| get-edid| Display DDC details|
 | saned| SANE Daemon|
 | hardinfo | Display Hardware Info's|
 | setserial| Setup/Diagnostic for RS232 |
@@ -78,9 +78,9 @@
 | command| description|
 |-|-|
 | pcsclistreaders | List Smart Card readers|
-| /etc/init\.d/pcscd| Stop / Start PCSC Daemon |
-| opensc\-explorer| Show available readers |
-| opensc\-tool| Commandline SC Tool|
+| /etc/init.d/pcscd| Stop / Start PCSC Daemon |
+| opensc-explorer| Show available readers |
+| opensc-tool| Commandline SC Tool|
 
 # Printing related
 
@@ -104,9 +104,9 @@
 
 | file| description|
 |-|-|
-| setup\.ini| Local configuration|
-| group\.ini| Configuration from UMS |
-| server\.crt | UMS Server certificate |
+| setup.ini| Local configuration|
+| group.ini| Configuration from UMS |
+| server.crt | UMS Server certificate |
 | /var/logs | Various log files|
 | /config/sessions| Generated sessions |
 
@@ -122,7 +122,7 @@
 | list| List a part of the registry |
 | delinstance | Delete a session or instance|
 | newinstace| Create a session or instance|
-| numinstances| Show next available instance nr\. |
+| numinstances| Show next available instance nr. |
 | superclasses| List all available superclasses |
 | store_usbconfig| Write config to USB Storage |
 | load_usbconfig | Load config from USB Storage|
@@ -133,7 +133,7 @@
 
 | command| description |
 |-|-|
-| /config/bin/firmware\-update| Start firmware update |
+| /config/bin/firmware-update| Start firmware update |
 
 # Custom Partition
 
@@ -148,7 +148,7 @@
 | ums_available | Check available UMS Server|
 | rmregister | Start tool to register @ UMS|
 | rmagent_cli | UMS Agent commandline |
-| get_rmsettings| Get UMS config \(rebootto apply\) |
+| get_rmsettings| Get UMS config (rebootto apply) |
 
 # Network Ethernet / WIFI related
 
@@ -179,35 +179,35 @@
 | command| description|
 |-|-|
 | florence| OnScreen Keyboard|
-| notify\-send\-message | Display GUI Text Message |
+| notify-send-message | Display GUI Text Message |
 | Mostly all commands provide an build-in help with | command --h |
 | igel_firstboot_wizard | Starts the First Boot Wizard|
 | igel_buddy_update_server_scan | Search for Buddy Masters in network |
-| start\-wireless\-manager| Starts the Wireless cafe menu \(start as user\) |
-| xfce4\-display\-settings| Start the old Display Switcher as binary|
+| start-wireless-manager| Starts the Wireless cafe menu (start as user) |
+| xfce4-display-settings| Start the old Display Switcher as binary|
 | igel_gamma | TOCHECK Should influence the brightness |
 | igel_display_switcher | Start the new Display Switcher|
 | xrandr| Controls the Screens from command line|
-| systemd\-resolve \-\-flush\-caches| Flush DNS cache |
-| df \-h| Shows Partition usage |
+| systemd-resolve --flush-caches| Flush DNS cache |
+| df -h| Shows Partition usage |
 | gpicview| Starts an Picture Viewer|
 | user_shutdown| Shutdown as User|
 | user_reboot| Reboot as user|
-| opensc\-tool| Lists opensc smartcard informations and tools |
+| opensc-tool| Lists opensc smartcard informations and tools |
 | apparmor_status| Lists all services protected by apparmor|
 | applauncher | Starts the application launcher |
-| icg\-setup| Start the ICG GUI Setup or with parameters the CLI|
+| icg-setup| Start the ICG GUI Setup or with parameters the CLI|
 | icaconncenter | ICA Connection Center |
 | zenity| Start with parameters Dialogs |
 | setusercryptparam | Saves User encrypted Data like Password to Igel Registry|
 | setcryptparam | Saves encrypted Data like Password to Igel Registry |
 | pkcs11getloginname| Shows extracted smart card login name |
-| curl https://fqdn\.of\.website| Command line tool to check for trusted certificate|
-| icg\-config \-s cloud\-gateway\.info \-o 1234 | IGEL Cloud Gateway config; with url and mass deployment key |
-| zenity \-\-progress \-\-text="Trying to connect" \-\-percentage="0" \-\-auto\-close & | Dialog with progress bar|
+| curl https://fqdn.of.website| Command line tool to check for trusted certificate|
+| icg-config -s cloud-gateway.info -o 1234 | IGEL Cloud Gateway config; with url and mass deployment key |
+| zenity --progress --text="Trying to connect" --percentage="0" --auto-close & | Dialog with progress bar|
 | nmcli radio wifi off| Disables Wifi, On enables it|
-| journalctl \-f| Sys logs anzeigen und folgen\.|
-| systemctl restart network\-manager| Restart Network |
+| journalctl -f| Sys logs anzeigen und folgen.|
+| systemctl restart network-manager| Restart Network |
 | killwait_postsetupd| reset and applay setup changes set by "setparam"|
-| write_rmsettings | Write local setup changes back to UMS\. |
-| getmyip \| cut \-d\. \-f1\-4| show device IP only\. |
+| write_rmsettings | Write local setup changes back to UMS. |
+| getmyip | cut -d. -f1-4| show device IP only. |
