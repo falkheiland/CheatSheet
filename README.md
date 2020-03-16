@@ -2,3 +2,4 @@
 
 - [Powershell](Powershell.md)
 - [Windows Terminal](WindowsTerminal.md)
+- [IGEL](IGEL.md)
