@@ -4,10 +4,10 @@
 
 |source|regex|
 |-|-|
-|Rechnungsnr./-datum 181030022 / **`01.10.2018`**|```REGEX:(?i)(?<=Rechnungsnr\.\/-datum\s{1}\d{9}\s{1}\/\s{1})\b([\S]+)\b```|
-|Rechnungsnr./-datum **`181030022`** / 01.10.2018|```REGEX:(?i)(?<=Rechnungsnr\.\/-datum\s{1})\b([\S]+)\b```|
-|Unfallversicherung Nr.: **`400 665 212 `** dsfrg 0ß09 2545|```REGEX:(?i)(?<=Unfallversicherung Nr.:\s{1})\b([\d|\s]+)\b```|
-|Kunde **`1361162`**|```REGEX:(?i)(?<=Kunde\s{1})\b([\S]+)\b```|
+|Rechnungsnr./-datum 181030022 / **`01.10.2018`**|`REGEX:(?i)(?<=Rechnungsnr\.\/-datum\s{1}\d{9}\s{1}\/\s{1})\b([\S]+)\b`|
+|Rechnungsnr./-datum **`181030022`** / 01.10.2018|`REGEX:(?i)(?<=Rechnungsnr\.\/-datum\s{1})\b([\S]+)\b`|
+|Unfallversicherung Nr.: **`400 665 212 `** dsfrg 0ß09 2545|`REGEX:(?i)(?<=Unfallversicherung Nr.:\s{1})\b([\d|\s]+)\b`|
+|Kunde **`1361162`**|`REGEX:(?i)(?<=Kunde\s{1})\b([\S]+)\b`|
 |Herm **`Max Mustermann Hauptstraße 1 01234 Musterstadt`**|`REGEX:(?i)(?<=Herm\s{1})\b(.+)|(?<=Herrn\s{1})\b(.+)\b`|
 |Firma **`Rechnung`** INNA Ihre Referenznr. 2003274521|`REGEX:(?i)(\bRechnung\b)`|
 |Amtsgericht Dresde **`Cyberport GmbH`** E-Mail Am|`REGEX:(?i)(\bCyberport GmbH\b)`|
