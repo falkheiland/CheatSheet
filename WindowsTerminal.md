@@ -1,4 +1,6 @@
-# keybindings
+# Windows Terminal
+
+## keybindings
 
 |command|keys|
 |-|-|
