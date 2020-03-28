@@ -36,12 +36,16 @@
 
 ### 324 3423 334 Text **`18.10.2017`** Text 23,12
 
-`REGEX:\d{2}.\d{2}.\d{4}`|
+`REGEX:\d{2}.\d{2}.\d{4}`
 
 ### Datum **`7. Dezember 2018`** Durchwahl Tlf3444
 
-`REGEX:\d{1,2}.\s{1}\w+\s{1}\d{4}`|
+`REGEX:\d{1,2}.\s{1}\w+\s{1}\d{4}`
 
 ### Str. 1 **`197,59`** EUR leistung
 
-`REGEX:\d{1,4},\d{2}`|
+`REGEX:\d{1,4},\d{2}`
+
+### sss
+
+`REGEX:\d{1,4},\d{2}\s+EUR`
