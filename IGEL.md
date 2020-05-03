@@ -46,7 +46,7 @@
 |-|-|
 | > | Write output into a new file|
 | >>| Extend file with output |
-| ¦ | Output is input for next process |
+| \| | Output is input for next process |
 
 # Important folders
 
