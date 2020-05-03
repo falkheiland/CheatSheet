@@ -110,6 +110,28 @@
 | /var/logs | Various log files|
 | /config/sessions| Generated sessions |
 
+# UMS log files
+
+| file| description|
+|-|-|
+|api.log|IMI interface|
+|catalina.log(.yyyy-mm-dd)|UMS|
+|localhost.log(.yyyy-mm-dd)|Tomcat|
+|communication.log|communication between devices and UMS server / UMS console and UMS server; empty / deactivated by default, has to be activated in log4j.properties; can be very huge when active|
+|usgcommunication.log(.x)|communication between devices and ICG / UMS console and ICG; empty / deactivated by default, has to be activated in log4j.properties; can be very huge when active|
+|license_deployment.log|ALD|
+|stdout.log|like catalina.log but only since last server start|
+|stderr.log|JVM error output; critical VM messages|
+|umsthreaddump|UMS ThreadDump|
+|igel-ums-admin.log|UMS Administrator|
+|install.log|UMS installation|
+|ERP_PROCESS.log|support information|
+|ERP_PROCESS_INFOS.log|support information|
+|Environment.txt|support information|
+|thread_dump_start.\*|support information|
+|thread_dump_end.\*|support information|
+
+
 # Configuration 
 
 | command| description |
