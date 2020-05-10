@@ -39,7 +39,7 @@
   - [Arrays of hashtables](#arrays-of-hashtables)
   - [PSBoundParameters](#psboundparameters)
 - [Help](#help)
-- [Useful Functions](#useful-functions)
+- [Useful Cmdlets](#useful-cmdlets)
 - [Useful Modules](#useful-modules)
 - [Statements](#statements)
   - [#Requires](#requires)
@@ -387,7 +387,8 @@ Install
 Install-Module -Name ModuleName -Repository RepositoryName -Scope AllUsers
 ```
 
-Check for  outdated  Modules
+Check for  outdated  Modules:
+
 ```powershell
 Get-InstalledModule |
   Select-Object Name, @{
@@ -398,9 +399,11 @@ Get-InstalledModule |
   Where-Object {$_.Available -gt $_.Installed}
 ```
 
-## String
+## Data Types
 
-### Concatenating
+### String
+
+#### Concatenating
 
 join
 
@@ -414,7 +417,7 @@ f operator
 '{0}{1}' -f 'aaa', 'bbb'
 ```
 
-### extract a part of the string
+#### extract a part of the string
 
 substring
 
@@ -431,15 +434,15 @@ $LeftPart = $Name.Substring(0, $Pos)
 $RightPart = $Name.Substring($Pos + 1)
 ```
 
-### Title Casing
+#### Title Casing
 
-```
+```powershell
 (Get-Culture).TextInfo.ToTitleCase("maX MusTerMann")
 ```
 
-## Here String
+#### Here String
 
-### Create
+##### Create
 
 ```powershell
 $HereString = @'
@@ -450,7 +453,7 @@ dasssd
 '@
 ```
 
-### Join
+##### Join
 
 ```powershell
 $HereStringA = @"
@@ -464,6 +467,22 @@ asdfsdassdfdfd
   dfgd
 '@
 $HereStringA, $HereStringB -join "`n"
+```
+
+### DateType
+
+#### Parse
+
+```powershell
+[datetime]::ParseExact("2020-04-16T14:10:23-05:00","yyyy-MM-ddTHH:mm:ss-05:00",$Null)
+```
+
+### Array
+
+#### Get collection even with only one item in array
+
+```powershell
+@($OneItemColl)
 ```
 
 ## Objects
@@ -661,7 +680,35 @@ Get-Help -Name Get-Process -Examples
 (Get-Help -Name remote).where{$_.Category -eq 'Function'}
 ```
 
-## Useful Functions
+## Useful Cmdlets
+
+### Group-Object
+
+#### -AsHashtable
+
+Turns a collection of data into a hashtable of that data that you can index into.
+This will add each row into a hashtable and use the specified property as the key to access it.
+
+```powershell
+$Employee = @"
+LastName,FirstName,Location
+Schmidt,Hans,Leipzig
+Schmidt,Thomas,Berlin
+Mueller,Thomas,Leipzig
+Mueller,Klaus,Berlin
+Meier,Hans,Leipzig
+"@ | ConvertFrom-Csv | Group-Object -AsHashtable -Property LastName
+$Employee.Mueller
+```
+
+```console
+LastName FirstName Location
+-------- --------- --------
+Mueller  Thomas    Leipzig
+Mueller  Klaus     Berlin
+```
+
+### Show-Object
 
 Provides a graphical interface to let you explore and navigate an object.
 
@@ -669,16 +716,17 @@ Provides a graphical interface to let you explore and navigate an object.
 Get-Process | Show-Object
 ```
 
+## Useful Modules
+
+### PowerShellCookbook (Show-Object)
+
+### ImportExcel
+
 quick replacement for Out-Gridview, Excel has to be installed
 
 ```powershell
 Get-Process | Export-Excel -Now -WarningAction SilentlyContinue
 ```
-
-## Useful Modules
-
- PowerShellCookbook (Show-Object)
- ImportExcel
 
 ## Statements
 
@@ -911,6 +959,7 @@ Get-Command | Out-GridView -PassThru | Get-Help -ShowWindow
 ```powershell
 (New-Object -ComObject 'Microsoft.Update.AutoUpdate').DetectNow()
 ```
+
 ### Generate Password
 
 Generates an 8-char PW including 3 special characters
@@ -955,4 +1004,33 @@ $BeginWith = [WildcardPattern]::Escape('Mich')
 ```console
 Michael
 Michelle
+```
+
+### progress bar
+
+```powershell
+$itemColl = Get-ChildItem -Path ('{0}' -f [IO.Path]::GetTempPath()) -File
+$step = 10
+$i = 0
+foreach ($item in $itemColl)
+{
+  If ($i%$step -eq 0)
+  {
+    Write-Host ('[{0}/{1}]' -f $i, ($itemColl).Count)
+    $item | Do-Something
+  }
+  $i++
+}
+```
+
+```console
+[10/96]
+[20/96]
+[30/96]
+[40/96]
+[50/96]
+[60/96]
+[70/96]
+[80/96]
+[90/96]
 ```
