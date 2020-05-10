@@ -485,9 +485,23 @@ $HereStringA, $HereStringB -join "`n"
 @($OneItemColl)
 ```
 
+## List
+
+Unlike eg. an array it's not fixed size and you can add and remove items from it to your hearts content with several types of Add and Remove methods. Also has methods for sorting and more.
+
+### Create list
+
+```powershell
+New-Object 'System.Collections.Generic.List[System.Object]'
+```
+
+```powershell
+[System.Collections.Generic.List[System.Object]]::new()
+```
+
 ## Objects
 
-### Creating
+### Create object
 
 Using New-Object and hashtables
 
@@ -1033,4 +1047,23 @@ foreach ($item in $itemColl)
 [70/96]
 [80/96]
 [90/96]
+```
+
+### get default values of parameters in function
+
+```powershell
+(Get-Command Get-UMSDevice).ScriptBlock.Ast.Body.paramblock.Parameters |
+  Select-Object -Property Name, DefaultValue
+```
+
+```console
+Name              DefaultValue
+----              ------------
+$Computername
+$TCPPort          8443
+$ApiVersion       3
+$SecurityProtocol 'Tls12'
+$WebSession
+$Filter           'short'
+$Id
 ```
