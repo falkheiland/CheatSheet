@@ -26,8 +26,10 @@
 - [Here String](#here-string)
   - [Create](#create)
   - [Join](#join)
+- [Lists](#lists)
+  - [Create list](#create-list)
 - [Objects](#objects)
-  - [Creating](#creating)
+  - [Create object](#create-object)
   - [Write-Output vs Return](#write-output-vs-return)
   - ['+=' Operator](#-operator)
   - [Property](#property)
@@ -485,7 +487,7 @@ $HereStringA, $HereStringB -join "`n"
 @($OneItemColl)
 ```
 
-## List
+## Lists
 
 Unlike eg. an array it's not fixed size and you can add and remove items from it to your hearts content with several types of Add and Remove methods. Also has methods for sorting and more.
 
