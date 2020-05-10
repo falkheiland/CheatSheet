@@ -1069,3 +1069,11 @@ $WebSession
 $Filter           'short'
 $Id
 ```
+
+### enter credentials via command line
+
+as opposed to GUI
+
+```powershell
+Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\PowerShell\1\ShellIds" ConsolePrompting True
+```
