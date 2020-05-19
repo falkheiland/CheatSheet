@@ -41,6 +41,7 @@
 |route|Display/Config network routes|
 |iptables|Firewall configuration|
 |probeport|Test network port on a host|
+|nmcli|Manage network connections via CLI|
 
 ## Linux pipes
 
