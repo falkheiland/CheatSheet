@@ -22,7 +22,7 @@
 |mount|Mount a partition||
 |user_shutdown|Shutdown the system||
 |user_reboot|Reboot the system||
-|grep|Search for regular expression|`more /wfs/setup.ini | grep structure`|
+|grep|Search for regular expression|```more /wfs/setup.ini | grep structure```|
 |top|Task Monitor||
 |killall|Kill process by name||
 |sleep|Wait||
