@@ -244,6 +244,6 @@
 ## Registry
 
 |Path|description|
-|-|-|-|
+|-|-|
 |network.interfaces.wirelesslan.device0.wpa.debug|wifi debug|
 |network.interfaces.ethernet.devices%.ieee8021x.debug|802.1x debug|
