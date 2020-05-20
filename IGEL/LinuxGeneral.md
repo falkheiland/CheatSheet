@@ -237,7 +237,7 @@ more group.ini
 
 mount a partition
 
-**mount license folder readable:**
+**mount license folder writeable:**
 
 ```bash
 mount -o remount,rw /license
