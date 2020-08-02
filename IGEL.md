@@ -61,7 +61,7 @@
 |-|-|
 |>|Write output into a new file|
 |>>|Extend file with output|
-|\|Output is input for next process||
+|\||Output is input for next process|
 
 ## Hardware
 
@@ -234,12 +234,13 @@
 |pkcs11getloginname|Shows extracted smart card login name||
 |curl https://fqdn.of.website|Command line tool to check for trusted certificate||
 |icg-config -s cloud-gateway.info -o 1234|IGEL Cloud Gateway config; with url and mass deployment key||
-|nmcli radio wifi off|Disables Wifi, On enables it||
-|journalctl -f|Sys logs anzeigen und folgen.||
+|nmcli radio wifi off|Disables Wifi (`on` enables it)||
+|journalctl -f|View and follow system log||
 |systemctl restart network-manager|Restart Network||
-|killwait_postsetupd|reset and applay setup changes set by "setparam"||
+|killwait_postsetupd|reset and apply setup changes set by "setparam"||
 |write_rmsettings|Write local setup changes back to UMS.||
-|getmyip|cut -d. -f1-4|show device IP only.||
+|getmyip \| cut -d. -f1-4|show device IP only.||
+|openssl verify /path/to/cert.cer|Verify if an SSL certificate is trusted||
 
 ## Registry
 
