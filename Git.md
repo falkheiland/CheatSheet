@@ -1,7 +1,7 @@
 # Git
 
 |command|description|
-|-|-|-|
+|-|-|
 |git ls-tree -r master|lists tracked files|
 |git log --oneline|display logs|
 |git config --global user.name "username"|set username globally|
