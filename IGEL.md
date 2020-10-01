@@ -31,6 +31,7 @@
 |uname|Show Linux details||
 |date|Date tool||
 |systemctl|service handler|`systemctl restart networkmanager`|
+|compgen|list all the linux commands (including bash shell aliases and functions)|`compgen -c | egrep "igel|_rm" | sort | more`|
 
 ## Network general
 
