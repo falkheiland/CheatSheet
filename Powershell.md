@@ -5,6 +5,9 @@
   - [History](#history)
 - [vscode](#vscode)
   - [Settings](#settings)
+- [Variables](#variables)
+  - [Set-Variable](#set-variable)
+  - [OutVariable](#outvariable)
 - [Remoting](#remoting)
 - [AD](#ad)
 - [Networking](#Networking)
@@ -33,7 +36,6 @@
   - [Write-Output vs Return](#write-output-vs-return)
   - ['+=' Operator](#-operator)
   - [Property](#property)
-  - [OutVariable](#outvariable)
   - [Methods](#methods)
 - [Hashtable](#hashtable)
   - [Ordered](#ordered)
@@ -62,6 +64,8 @@
   - [Select and show Command](#select-and-show-Command)
   - [Trigger Windows update](#trigger-windows-update)
   - [Generate Password](#generate-password)
+  - [Encode URLs](#encode-urls)
+  - [Decode URLs](#decode-urls)
 
 ## Console
 
@@ -89,6 +93,22 @@ Bash style completion:
 
 ```powershell
 Set-PSReadlineOption -EditMode Emacs
+```
+Don't write certain phrases to history:
+
+```powershell
+Set-PSReadLineOption -AddToHistoryHandler {
+  param([string]$line)
+
+  $sensitive = "password|asplaintext|token|key|secret|credential"
+  return ($line -notmatch $sensitive)
+}
+```
+
+predictive IntelliSense 
+
+```powershell
+Set-PSReadLineOption -PredictionSource History
 ```
 
 ## vscode
@@ -125,6 +145,39 @@ C:\>bck-i-search: <String>
 '#' searcher:
 
 `C:\>#<optional String>`+[TAB]
+
+## Variables
+
+### Set-Variable
+
+Set dynamic Variablename
+
+```powershell
+$ProcessName = 'explorer'
+$PropertyName = 'Id'
+Get-Process -Name $ProcessName |
+  Select-Object -Property $PropertyName |
+  Set-Variable ('{0}{1}' -f $ProcessName, $PropertyName)
+$ExplorerId
+```
+
+```console
+  Id
+  --
+7936
+```
+
+### OutVariable
+
+```powershell
+$Null = Get-Service -OutVariable GetService |
+  Sort-Object -Property Status -Descending -OutVariable GetServiceByStatus |
+  Format-Table -AutoSize -OutVariable GetServiceByStatusAutosize
+
+$GetService
+$GetServiceByStatus
+$GetServiceByStatusAutosize
+```
 
 ## Remoting
 
@@ -589,18 +642,6 @@ Get-ChildItem -Path $Path -Filter '.txt' |
       Expression = {$_.LastWriteTime - $_.CreationTime}; Ascending = $False
       } |
   Format-Table LastWriteTime, CreationTime
-```
-
-### OutVariable
-
-```powershell
-$Null = Get-Service -OutVariable GetService |
-  Sort-Object -Property Status -Descending -OutVariable GetServiceByStatus |
-  Format-Table -AutoSize -OutVariable GetServiceByStatusAutosize
-
-$GetService
-$GetServiceByStatus
-$GetServiceByStatusAutosize
 ```
 
 ### Methods
@@ -1076,4 +1117,26 @@ as opposed to GUI
 
 ```powershell
 Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\PowerShell\1\ShellIds" ConsolePrompting True
+```
+
+### encode-urls
+
+https://acme.com/Shared Documents/
+
+```powershell
+[System.Web.HttpUtility]::UrlEncode('https://acme.com/Shared Documents/')
+```
+
+```console
+https%3a%2f%2facme.com%2fShared+Documents%2f
+```
+
+### decode-urls
+
+```powershell
+[System.Web.HttpUtility]::UrlDecode('https%3a%2f%2facme.com%2fShared+Documents%2f')
+```
+
+```console
+https://acme.com/Shared Documents/
 ```
