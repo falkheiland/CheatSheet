@@ -380,7 +380,7 @@ $MultipleItems = 'apple', 'orange', 'banana'
 
 ```powershell
 $PSDefaultParameterValues = @{
-  ':Computername' = 'Computer01'
+  '*:Computername' = 'Computer01'
 }
 ```
 
